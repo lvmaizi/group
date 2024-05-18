@@ -37,4 +37,7 @@ public class Posts extends BaseDomain {
      */
     @TableField(value = "image_list", typeHandler = JacksonTypeHandler.class)
     private List<Image> imageList;
+
+    @TableField(exist = false)
+    private List<Comments> commentsList;
 }

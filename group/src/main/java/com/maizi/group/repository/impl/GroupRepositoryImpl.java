@@ -6,6 +6,8 @@ import com.maizi.group.repository.mapper.GroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @Author create by fanwenhao
  */
@@ -25,7 +27,6 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public void insert(Group domain) {
         repositoryWrapper.insert(mapper, domain);
-
     }
 
     @Override
@@ -37,5 +38,10 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public Group get(String uuid) {
         return repositoryWrapper.get(mapper, uuid);
+    }
+
+    @Override
+    public List<Group> list() {
+        return mapper.selectList(null);
     }
 }

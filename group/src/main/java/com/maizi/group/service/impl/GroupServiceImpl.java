@@ -8,6 +8,8 @@ import com.maizi.group.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author create by fanwenhao
  */
@@ -18,6 +20,11 @@ public class GroupServiceImpl implements GroupService {
     private GroupRepository groupRepository;
     @Autowired
     private PostsRepository postsRepository;
+
+    @Override
+    public List<Group> list() {
+        return groupRepository.list();
+    }
 
     @Override
     public void create(Group group) {

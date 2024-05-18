@@ -11,7 +11,7 @@ public interface PostsService {
 
     void create(Posts posts);
 
-    void detail(String uuid);
+    Posts detail(String uuid);
 
     List<Posts> listByPage(String groupUuid);
 
