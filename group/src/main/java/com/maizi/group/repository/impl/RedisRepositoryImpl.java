@@ -8,7 +8,7 @@ import com.maizi.group.repository.mapper.RedisMapper;
 import com.maizi.group.utils.JsonUtils;
 import com.maizi.group.utils.Timestamps;
 import com.maizi.group.constants.RedisKeyType;
-import com.maizi.group.domain.Redis;
+import com.maizi.group.domain.entity.Redis;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,7 +20,7 @@ import java.util.Objects;
  * 暂时使用数据库实现
  */
 @Component
-public class RedisRepositoryImpl extends BaseRepository implements RedisRepository {
+public class RedisRepositoryImpl implements RedisRepository {
 
     private static final long DEFAULT_DURATION = 24 * 3600 * 1000;
 

@@ -1,9 +1,12 @@
 package com.maizi.group.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.maizi.group.domain.entity.File;
+import com.maizi.group.domain.entity.Group;
 import org.apache.ibatis.annotations.Mapper;
 
+/**
+ * @Author create by fanwenhao
+ */
 @Mapper
-public interface FileMapper extends BaseMapper<File> {
+public interface GroupMapper extends BaseMapper<Group> {
 }

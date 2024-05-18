@@ -1,7 +1,7 @@
 package com.maizi.group.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.maizi.group.domain.Redis;
+import com.maizi.group.domain.entity.Redis;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 

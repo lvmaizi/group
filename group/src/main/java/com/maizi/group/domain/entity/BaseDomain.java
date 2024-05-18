@@ -1,4 +1,4 @@
-package com.maizi.group.domain;
+package com.maizi.group.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

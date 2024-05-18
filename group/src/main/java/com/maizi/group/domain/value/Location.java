@@ -1,4 +1,4 @@
-package com.maizi.group.domain;
+package com.maizi.group.domain.value;
 
 public class Location {
     private double longitude;

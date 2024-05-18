@@ -3,7 +3,7 @@ package com.maizi.group.service.impl;
 import com.maizi.group.exception.ClientException;
 import com.maizi.group.repository.FileRepository;
 import com.maizi.group.service.FileService;
-import com.maizi.group.domain.File;
+import com.maizi.group.domain.entity.File;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
