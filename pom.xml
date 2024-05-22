@@ -13,9 +13,9 @@
     <groupId>org.example</groupId>
     <artifactId>huishouquan</artifactId>
     <packaging>pom</packaging>
-    <version>${project.version}</version>
+    <version>1.0.0</version>
     <modules>
-        <module>api</module>
+        <module>group</module>
     </modules>
 
     <properties>
