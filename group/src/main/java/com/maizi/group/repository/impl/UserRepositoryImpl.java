@@ -1,5 +1,6 @@
 package com.maizi.group.repository.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.maizi.group.domain.entity.User;
 import com.maizi.group.repository.UserRepository;
 import com.maizi.group.repository.mapper.UserMapper;
@@ -36,4 +37,5 @@ public class UserRepositoryImpl implements UserRepository {
     public User get(String uuid) {
         return repositoryWrapper.get(mapper, uuid);
     }
+
 }

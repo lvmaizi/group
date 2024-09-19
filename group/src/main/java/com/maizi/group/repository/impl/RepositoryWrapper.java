@@ -2,6 +2,7 @@ package com.maizi.group.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.maizi.group.domain.entity.BaseDomain;
 import com.maizi.group.utils.IdGenerator;
@@ -51,8 +52,8 @@ public class RepositoryWrapper<T extends BaseDomain, R extends BaseMapper>  {
             return;
         }
         domain.setUpdateTime(Timestamps.now());
-        LambdaUpdateWrapper<T> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(T::getUuid, domain.getUuid());
+        UpdateWrapper<T> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("uuid", domain.getUuid());
         mapper.update(domain, updateWrapper);
     }
 
