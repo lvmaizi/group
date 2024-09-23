@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  https://www.cnblogs.com/Baker-Street/p/16166011.html  -->
+<configuration scan="false" debug="false">
+
+    <springProperty name="app.name" source="spring.application.name" />
+    <property name="log.path" value="./logs/${app.name}" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--日期 日志等级 PID 线程名 类路径 方法名 java源文件 行号 打印信息 换行-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%5p) %green(${PID:- }) --- %magenta([%15.15t]) %cyan(%C.%M\(%F:%L\)) : %msg%n</pattern>
+            <!--同上, 仅输出类路径, 不输出 方法名 java源文件 行号 -->
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文档的路径及文档名 -->
+        <file>${log.path}/${app.name}.log</file>
+        <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/${app.name}.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <!--单个文件大小-->
+            <maxFileSize>50MB</maxFileSize>
+            <!--日志文档保留天数-->
+            <maxHistory>14</maxHistory>
+            <!--指定日志文件总的上限大小-->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %C.%M\(%F:%L\) [%X{TRACE_ID}] : %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 单独输出error日志文件, 可选配置 -->
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/${app.name}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/${app.name}-error.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %C.%M\(%F:%L\) [%X{TRACE_ID}] : %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <logger name="com" level="DEBUG" />
+
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="console" />
+            <appender-ref ref="file" />
+            <appender-ref ref="error" />
+        </root>
+    </springProfile>
+    <!-- 测试环境 -->
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="file" />
+        </root>
+    </springProfile>
+    <!-- 生产环境. -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="file" />
+            <appender-ref ref="error" />
+        </root>
+    </springProfile>
+
+</configuration>

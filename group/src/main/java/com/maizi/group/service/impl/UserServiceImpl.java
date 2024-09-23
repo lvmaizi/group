@@ -7,6 +7,7 @@ import com.maizi.group.repository.RedisRepository;
 import com.maizi.group.repository.UserRepository;
 import com.maizi.group.service.UserService;
 import com.maizi.group.utils.IdGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Objects;
  * @Author create by fanwenhao
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(Login login) {
+        log.warn("sssssssssss");
         User user = userRepository.getByLogin(login.getUserName(), login.getPassword());
         if (Objects.isNull(user)) {
             throw new ClientException("用户名密码错误");
