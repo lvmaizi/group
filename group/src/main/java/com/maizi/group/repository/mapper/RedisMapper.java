@@ -12,8 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RedisMapper extends BaseMapper<Redis> {
 
-    @Insert("insert into redis (`id`,`uuid`,`key_type`,`key_0`,`value_0`,`duration`,`create_time`,`update_time`)"
-            + " value (#{id},#{uuid},#{keyType},#{key0},#{value0},#{duration},#{createTime},#{updateTime})"
+    @Insert("insert into redis (`id`,`uuid`,`key_type`,`key_0`,`value_0`,`duration`,`create_time`,`update_time`,`deleted`)"
+            + " value (#{id},#{uuid},#{keyType},#{key0},#{value0},#{duration},#{createTime},#{updateTime},#{deleted})"
             + " on duplicate key update "
             + " value_0=values(value_0),"
             + " duration=values(duration),"

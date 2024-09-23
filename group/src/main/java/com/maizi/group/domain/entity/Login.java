@@ -14,7 +14,7 @@ public class Login extends BaseDomain {
     @TableField("user_name")
     private String userName;
 
-    @TableField("password")
+    @TableField(value = "password", select = false)
     private String password;
 
     @TableField("token")

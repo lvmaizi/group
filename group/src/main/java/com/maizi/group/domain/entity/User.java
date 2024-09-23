@@ -16,8 +16,15 @@ public class User extends BaseDomain {
     /**
      * 用户名
      */
-    @TableField(value = "userName")
+    @TableField(value = "user_name")
     private String userName;
+
+    /**
+     * 密码
+     */
+    @TableField(value = "password")
+    private String password;
+
     /**
      * 头像
      */
@@ -28,5 +35,8 @@ public class User extends BaseDomain {
      */
     @TableField("signature")
     private String signature;
+
+    @TableField(exist = false)
+    private String token;
 
 }

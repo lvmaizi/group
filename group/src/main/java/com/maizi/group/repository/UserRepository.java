@@ -5,4 +5,6 @@ import com.maizi.group.repository.mapper.UserMapper;
 
 public interface UserRepository extends BaseRepository<User, UserMapper> {
 
+    User getByLogin(String userName, String password);
+
 }

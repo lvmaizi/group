@@ -2,13 +2,16 @@ package com.maizi.group.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.maizi.group.domain.entity.Posts;
 import com.maizi.group.repository.BaseRepository;
 import com.maizi.group.repository.RedisRepository;
+import com.maizi.group.repository.mapper.PostsMapper;
 import com.maizi.group.repository.mapper.RedisMapper;
 import com.maizi.group.utils.JsonUtils;
 import com.maizi.group.utils.Timestamps;
 import com.maizi.group.constants.RedisKeyType;
 import com.maizi.group.domain.entity.Redis;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -29,12 +32,8 @@ public class RedisRepositoryImpl implements RedisRepository {
 
     @Override
     public String get(RedisKeyType keyType, String key) {
-        if (Objects.isNull(keyType)) {
-            return null;
-        }
         LambdaQueryWrapper<Redis> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-//                .eq(Redis::getKeyType, keyType.name())
                 .eq(Redis::getKey0, key)
                 .eq(Redis::getDeleted, false)
         ;
@@ -60,7 +59,6 @@ public class RedisRepositoryImpl implements RedisRepository {
     @Override
     public void set(RedisKeyType keyType, String key, Object value, long expireTime) {
         Redis redis = new Redis();
-//        redis.setKeyType(keyType.name());
         redis.setKey0(key);
         redis.setValue0(JsonUtils.toJson(value));
         redis.setDuration(expireTime);
@@ -76,7 +74,6 @@ public class RedisRepositoryImpl implements RedisRepository {
         LambdaUpdateWrapper<Redis> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper
                 .set(Redis::getDeleted, true)
-//                .eq(Redis::getKeyType, keyType.name())
                 .eq(Redis::getKey0, key)
         ;
         redisMapper.update(null, updateWrapper);

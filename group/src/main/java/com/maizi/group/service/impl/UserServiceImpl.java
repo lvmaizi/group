@@ -3,7 +3,7 @@ package com.maizi.group.service.impl;
 import com.maizi.group.domain.entity.Login;
 import com.maizi.group.domain.entity.User;
 import com.maizi.group.exception.ClientException;
-import com.maizi.group.repository.LoginUserRepository;
+import com.maizi.group.repository.RedisRepository;
 import com.maizi.group.repository.UserRepository;
 import com.maizi.group.service.UserService;
 import com.maizi.group.utils.IdGenerator;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private LoginUserRepository loginUserRepository;
+    private RedisRepository redisRepository;
 
     @Override
     public void create(User user) {
@@ -34,17 +34,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Login login(Login login) {
-        Login loginTrue = loginUserRepository.getByLogin(login.getUserName(), login.getPassword());
-        if (Objects.isNull(loginTrue)) {
+    public User login(Login login) {
+        User user = userRepository.getByLogin(login.getUserName(), login.getPassword());
+        if (Objects.isNull(user)) {
             throw new ClientException("用户名密码错误");
         }
-        loginTrue.setToken(IdGenerator.uuid());
 
-        loginUserRepository.save(loginTrue);
-
-        Login response = new Login();
-        response.setToken(loginTrue.getToken());
+        String userName = login.getUserName();
+        String token = userName + "|" + IdGenerator.uuid();
+        redisRepository.set(null, userName, token, 30 * 60 * 1000);
+        User response = new User();
+        response.setToken(token);
         return response;
     }
 
@@ -53,7 +53,8 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(token)) {
             return false;
         }
-        Login login = loginUserRepository.getByToken(token);
-        return Objects.nonNull(login);
+        String userName = token.split("\\|")[0];
+        String tokenA = redisRepository.get(null, userName);
+        return Objects.nonNull(tokenA);
     }
 }

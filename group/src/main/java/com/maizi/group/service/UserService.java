@@ -9,7 +9,7 @@ public interface UserService {
 
     User get(String uuid);
 
-    Login login(Login login);
+    User login(Login login);
 
     boolean checkLogin(String token);
 }
